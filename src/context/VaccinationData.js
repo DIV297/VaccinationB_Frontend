@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const VaccinationData = (props) => {
   //console.log(props.location.state)
   let history =useNavigate();
-  const link = "https://vaccinationb-backend.onrender.com/";
+  const link = "https://vaccinationbac-backend.onrender.com/";
     const [centers,setCenters] = useState([]);
     const [bookedslots,setBookedslots] = useState([]);
     const [credentials, setCredentials] = useState({ email: '', password: '' })
@@ -56,6 +56,7 @@ const VaccinationData = (props) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'mode': 'no-cors',
           'auth-token': localStorage.getItem('token')
         }
       });
