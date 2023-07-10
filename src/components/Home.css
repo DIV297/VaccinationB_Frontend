@@ -1,0 +1,60 @@
+.calender{
+    color:blue;
+    background-color:rgb(215, 230, 238);
+    border-radius: 100px;
+    border: 2px solid red;
+    padding:10vh;
+    margin-top:10vh;
+    margin-bottom:10vh;
+    width:50%;
+
+}
+.bookedslots{
+    display: block;
+    margin: auto;
+    width: 80vw;
+    background-color: #d7e6ee;
+     border: 2px solid black;
+      border-radius: 30px;
+    padding: 5vh; 
+    color:rgb(42, 5, 130);
+}
+.centers{
+    margin: 5vh 10vh;
+    background-color: rgb(215, 230, 238);
+     border: 2px solid black;
+    color:rgb(42, 5, 130);
+      border-radius: 50px;
+    padding: 5vh; 
+}
+.allcenters{
+    display: flex;
+    flex-wrap: wrap;
+}
+.button{
+    background-color:aquamarine;
+    border-radius:10px;
+    padding:10px;
+}
+.button:hover{
+    background-color: white;
+    border-radius: 50px;
+
+}
+.m{
+    margin:10px;
+}
+.marq{
+    width: 100%;
+    color:red;
+}
+.datavalue{
+    animation-name: grow-shrink;
+  animation-duration: 3s;
+  animation-iteration-count: 2;
+ 
+}
+@keyframes grow-shrink {
+    40% { transform: scale(1.2); }
+    80% { transform: scale(1); }
+  }
