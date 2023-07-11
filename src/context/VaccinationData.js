@@ -17,7 +17,8 @@ const VaccinationData = (props) => {
 
     const fetchallcenters = async()=>{
       try{
-        const response = await fetch("http://localhost:5000/auth/user/displaycenter", {
+        const link = "https://vaccinationbac-backend.onrender.com";
+        const response = await fetch(`${link}/auth/user/displaycenter`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ const VaccinationData = (props) => {
 
     const fetchbookedslot = async()=>{
       try{
-        const response = await fetch("http://localhost:5000/auth/user/displaybookedslot", {
+        const response = await fetch(`${link}/auth/user/displaybookedslot`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -56,7 +57,7 @@ const VaccinationData = (props) => {
         }
     }
     const deletebookedslots = async(id)=>{
-      const response = await fetch(`http://localhost:5000/auth/user/deletebookedslots/${id}`, {
+      const response = await fetch(`${link}/auth/user/deletebookedslots/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +69,7 @@ const VaccinationData = (props) => {
     }
     const addcenter = async (name, place,dosage) => {
       try{
-        const response = await fetch("http://localhost:5000/auth/admin/addcenter", {
+        const response = await fetch(`${link}/auth/admin/addcenter`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ const VaccinationData = (props) => {
       }
       const deletecenter = async (id) => {
         try{
-        const response = await fetch(`http://localhost:5000/auth/admin/deletecenter/${id}`, {
+        const response = await fetch(`${link}/auth/admin/deletecenter/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -107,7 +108,7 @@ const VaccinationData = (props) => {
       const [slots,setSlots] = useState([]);
       const applyforslot = async (id,value) => {
         try{
-        const response = await fetch(`http://localhost:5000/auth/user/applyforslot/${id}/${value}`, {
+        const response = await fetch(`${link}/auth/user/applyforslot/${id}/${value}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ const VaccinationData = (props) => {
       }
       const fetchallbookedslot = async()=>{
         try {
-          const response = await fetch("http://localhost:5000/auth/admin/displayallbookedslot",{
+          const response = await fetch(`${link}/auth/admin/displayallbookedslot`,{
             method:'POST',
             headers:{
               'Content-Type': 'application/json'
@@ -147,7 +148,7 @@ const VaccinationData = (props) => {
       }
       const deleteaccount = async () => {
         try{
-        const response = await fetch("http://localhost:5000/auth/user/deleteaccount/", {
+        const response = await fetch(`${link}/auth/user/deleteaccount`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -167,7 +168,7 @@ const VaccinationData = (props) => {
       const loginUser = async () => {
         // login(user.email,user.password);
         try{
-        const response = await fetch("http://localhost:5000/auth/user/loginuser", {
+        const response = await fetch(`${link}/auth/user/loginuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,7 +204,7 @@ const VaccinationData = (props) => {
       // login(user.email,user.password);
       try{
       const {name,age,mobileno,city,state,email,password}=credentials;
-      const response = await fetch("http://localhost:5000/auth/user/adduser", {
+      const response = await fetch(`${link}/auth/user/adduser`, {
         
           method: 'POST',
           headers: {
@@ -242,7 +243,7 @@ const VaccinationData = (props) => {
       }
       const profile = async()=>{
         try{
-          const response = await fetch("http://localhost:5000/auth/user/getuser", {
+          const response = await fetch(`${link}/auth/user/getuser`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -263,7 +264,7 @@ const VaccinationData = (props) => {
       const loginAdmin = async () => {
         // login(user.email,user.password);
         try{
-        const response = await fetch("http://localhost:5000/auth/admin/loginadmin", {
+        const response = await fetch(`${link}/auth/admin/loginadmin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -296,7 +297,7 @@ const VaccinationData = (props) => {
       // login(user.email,user.password);
       try{
       const {name,email,password}=credentials;
-      const response = await fetch("http://localhost:5000/auth/admin/addadmin", {
+      const response = await fetch(`${link}/auth/admin/addadmin`, {
         
           method: 'POST',
           headers: {
