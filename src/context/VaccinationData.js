@@ -14,10 +14,10 @@ const VaccinationData = (props) => {
     const [admin,setAdmin] = useState(false);
     const [userlogin,setUserlogin] = useState(false);
     const [allbookedslots,setAllbookedslots] = useState([]);
-
+    const link = "https://vaccinationbac-backend.onrender.com";
     const fetchallcenters = async()=>{
       try{
-        const link = "https://vaccinationbac-backend.onrender.com";
+        
         const response = await fetch(`${link}/auth/user/displaycenter`, {
             method: 'POST',
             headers: {
