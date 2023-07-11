@@ -23,7 +23,7 @@ const AddCenter = () => {
   return (
     <>
      <h1 className='container'>Add Center</h1>
-     <div className="centers"   >
+     <div className="login"   >
             <form>
                 <div className="form-outline mb-4">
                     <input type="text" id="name" name="name" className="form-control" onChange={onChange} value={center.name}/>
