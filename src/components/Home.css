@@ -9,6 +9,11 @@
     width:50%;
 
 }
+@media screen and (max-width: 700px) {
+    .calender {
+        width: 80%;
+    }
+  }
 .bookedslots{
     display: block;
     margin: auto;
@@ -20,7 +25,7 @@
     color:rgb(42, 5, 130);
 }
 .centers{
-    margin: 5vh 10vh;
+    margin: 2vh 7vw 2vh 7vw;
     background-color: rgb(215, 230, 238);
      border: 2px solid black;
     color:rgb(42, 5, 130);

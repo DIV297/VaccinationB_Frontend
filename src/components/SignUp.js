@@ -13,19 +13,19 @@ const clickbutoon = () => {
     console.log('clicked button');
     AddUser();
     if(match){
-      history("../");
+      // history("../");
     }
 }
 const clickbutoonforadmin = ()=>{
   console.log('clicked button');
     AddAdmin();
     if(match){
-      history("../");
+      // history("../");
     }
 }
   return (
     <>
-      <h2 className='container' style={{'margin':'10vh'}}>Create Account to Vaccination Booking App</h2>
+      <h2 className='' style={{'margin':'6vh'}}>Create Account to Vaccination Booking App</h2>
 
 <form onSubmit={AddUser} className="centers" style={{
   
@@ -35,6 +35,20 @@ const clickbutoonforadmin = ()=>{
 <label className="form-label" htmlFor="name" >Username</label>
 </div>
 
+<div className="form-outline mb-4">
+<input type="number" name='age' id='age' className="form-control" onChange={onChange}/>
+<label className="form-label" htmlFor="age" >Age</label>
+</div><div className="form-outline mb-4">
+<input type="number" name='mobileno' id='mobileno' className="form-control" onChange={onChange}/>
+<label className="form-label" htmlFor="mobileno" >Mobile no</label>
+</div><div className="form-outline mb-4">
+<input type="text" name='city' id='city' className="form-control" onChange={onChange}/>
+<label className="form-label" htmlFor="city" >city</label>
+</div>
+<div className="form-outline mb-4">
+<input type="text" name='state' id='state' className="form-control" onChange={onChange}/>
+<label className="form-label" htmlFor="state" >State</label>
+</div>
 <div className="form-outline mb-4">
 <input type="email" name='email' id='email' className="form-control" onChange={onChange}/>
 <label className="form-label" htmlFor="email" >Email address</label>

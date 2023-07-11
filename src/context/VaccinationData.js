@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dataContext from "./dataContext";
 import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
 const VaccinationData = (props) => {
   //console.log(props.location.state)
+  
   let history =useNavigate();
-  const link = "https://vaccinationbac-backend.onrender.com/";
     const [centers,setCenters] = useState([]);
+    const [profilee,setProfilee] = useState([])
     const [bookedslots,setBookedslots] = useState([]);
     const [credentials, setCredentials] = useState({ email: '', password: '' })
     const [match,setMatch] = useState(false);
     const [admin,setAdmin] = useState(false);
+    const [userlogin,setUserlogin] = useState(false);
+    const [allbookedslots,setAllbookedslots] = useState([]);
+
     const fetchallcenters = async()=>{
       try{
-        const response = await fetch(`${link}auth/user/displaycenter`, {
+        const response = await fetch("http://localhost:5000/auth/user/displaycenter", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -33,7 +37,7 @@ const VaccinationData = (props) => {
 
     const fetchbookedslot = async()=>{
       try{
-        const response = await fetch(`${link}auth/user/displaybookedslot`, {
+        const response = await fetch("http://localhost:5000/auth/user/displaybookedslot", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -52,11 +56,10 @@ const VaccinationData = (props) => {
         }
     }
     const deletebookedslots = async(id)=>{
-      const response = await fetch(`${link}auth/user/deletebookedslots/${id}`, {
+      const response = await fetch(`http://localhost:5000/auth/user/deletebookedslots/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'mode': 'no-cors',
           'auth-token': localStorage.getItem('token')
         }
       });
@@ -65,7 +68,7 @@ const VaccinationData = (props) => {
     }
     const addcenter = async (name, place,dosage) => {
       try{
-        const response = await fetch(`${link}auth/admin/addcenter`, {
+        const response = await fetch("http://localhost:5000/auth/admin/addcenter", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -84,10 +87,11 @@ const VaccinationData = (props) => {
       }
       const deletecenter = async (id) => {
         try{
-        const response = await fetch(`${link}auth/admin/deletecenter/${id}`, {
+        const response = await fetch(`http://localhost:5000/auth/admin/deletecenter/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
+            'mode': 'no-cors',
             'auth-token': localStorage.getItem('token')
           }
         });
@@ -103,7 +107,7 @@ const VaccinationData = (props) => {
       const [slots,setSlots] = useState([]);
       const applyforslot = async (id,value) => {
         try{
-        const response = await fetch(`${link}auth/user/applyforslot/${id}/${value}`, {
+        const response = await fetch(`http://localhost:5000/auth/user/applyforslot/${id}/${value}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -124,11 +128,46 @@ const VaccinationData = (props) => {
       }
       catch(err){
       }
-      }  
+      }
+      const fetchallbookedslot = async()=>{
+        try {
+          const response = await fetch("http://localhost:5000/auth/admin/displayallbookedslot",{
+            method:'POST',
+            headers:{
+              'Content-Type': 'application/json'
+          }
+          }
+          
+        )
+        const json = await response.json()
+        setAllbookedslots(json);
+      } catch (error) {
+          
+        }
+      }
+      const deleteaccount = async () => {
+        try{
+        const response = await fetch("http://localhost:5000/auth/user/deleteaccount/", {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'mode': 'no-cors',
+            'auth-token': localStorage.getItem('token')
+          }
+        });
+        showAlert("success",'Account Deleted Successfully','block');
+        history("../", { replace: true });
+      }
+      catch(err){
+
+      }
+      }
+
+
       const loginUser = async () => {
         // login(user.email,user.password);
         try{
-        const response = await fetch(`${link}auth/user/loginuser`, {
+        const response = await fetch("http://localhost:5000/auth/user/loginuser", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -142,30 +181,35 @@ const VaccinationData = (props) => {
             localStorage.setItem('token', json.token);
             setMatch(json.success);
             setAdmin(false);
+            setUserlogin(true);
             // showAlert("success", "successfully login")
             showAlert("success", "successfully login", "block")
             history("../home");
         }
-        else {
+        else if(json.success===false) {
             showAlert("danger", "Invalid credentials", "block")
            
         }
+        else{
+          showAlert("danger","Network Error.Please check connection","block");
+        }
       }
       catch(err){
+        showAlert("danger","Network Error.Please check connection","block");
       }
-    }
+    } 
     
     const AddUser = async () => {
       // login(user.email,user.password);
       try{
-      const {name,email,password}=credentials;
-      const response = await fetch(`${link}auth/user/adduser`, {
+      const {name,age,mobileno,city,state,email,password}=credentials;
+      const response = await fetch("http://localhost:5000/auth/user/adduser", {
         
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
           },
-          body: JSON.stringify({name,email,password })
+          body: JSON.stringify({name,age,mobileno,city,state,email,password })
   
       });
       const json = await response.json();
@@ -173,7 +217,7 @@ const VaccinationData = (props) => {
           if (json.answer===0) {
               localStorage.setItem('token', json.authtoken);
               showAlert("success", "successfully account created",'block')
-              history("../login", { replace: true });
+              history("../", { replace: true });
               if(json.success===true)
               setMatch(json.success);
               setAdmin(false);
@@ -182,17 +226,44 @@ const VaccinationData = (props) => {
           else if(json.answer===2) {
               showAlert("danger", "User already exist.Try to login", "block")
           }
+          else if(json.answer===3) {
+            showAlert("danger", "User with this mobile no already exist", "block")
+        }
           else if(json.answer===1) {
-            showAlert("danger", "Invalid Crudentials - Your password and name should be contain atleast 5 alphabets", "block")
+            showAlert("danger", "Invalid Crudentials - Fill details correctly.Your detalis should have atleast 3 characters", "block")
+          }
+          else{
+            showAlert("danger","Network Error.Please check connection","block");
           }
       }
       catch(err){
+        showAlert("danger","Network Error.Please check connection","block");
       }
       }
+      const profile = async()=>{
+        try{
+          const response = await fetch("http://localhost:5000/auth/user/getuser", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+              },
+            
+            });
+            
+            const json = await response.json();
+            console.log(json)
+            setProfilee(json);
+          }
+          catch(err){
+  
+          }
+      }
+  
       const loginAdmin = async () => {
         // login(user.email,user.password);
         try{
-        const response = await fetch(`${link}auth/admin/loginadmin`, {
+        const response = await fetch("http://localhost:5000/auth/admin/loginadmin", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -207,9 +278,10 @@ const VaccinationData = (props) => {
             if(json.success===true)
             setMatch(json.success);
             setAdmin(true);
+            setUserlogin(true);
             // showAlert("success", "successfully login")
             showAlert("success", "successfully login", "block");
-            history("../home");
+            history("../addcenter");
         }
         else {
             showAlert("danger", "Invalid credentials", "block")
@@ -217,14 +289,14 @@ const VaccinationData = (props) => {
         }
       }
       catch(err){
-        
+        showAlert("danger","Network Error.Please check connection","block");
       }
     }
     const AddAdmin = async () => {
       // login(user.email,user.password);
       try{
       const {name,email,password}=credentials;
-      const response = await fetch(`${link}auth/admin/addadmin`, {
+      const response = await fetch("http://localhost:5000/auth/admin/addadmin", {
         
           method: 'POST',
           headers: {
@@ -238,7 +310,7 @@ const VaccinationData = (props) => {
           if (json.answer===0) {
               localStorage.setItem('token', json.authtoken);
               showAlert("success", "successfully account created",'block')
-              // history("../", { replace: true });
+              history("../", { replace: true });
               if(json.success===true)
               setMatch(json.success);
               setAdmin(true);
@@ -248,11 +320,14 @@ const VaccinationData = (props) => {
               showAlert("danger", "User already exist.Try to login", "block")
           }
           else if(json.answer===1) {
-            showAlert("danger", "Invalid Crudentials - Your password and name should be contain atleast 5 alphabets", "block")
+            showAlert("danger", "Invalid Crudentials - Your details should contain atleast 3 alphabets", "block")
+        }
+        else{
+          showAlert("danger","Network Error.Please check connection","block");
         }
       }
       catch(error){
-        
+        showAlert("danger","Network Error.Please check connection","block");
       }
       }
     const [message, setMessage] = useState('');
@@ -274,7 +349,7 @@ const VaccinationData = (props) => {
   return (
     <>
     <Alert message={message} type={type} display={display}/>
-      <dataContext.Provider value={{centers,setCenters,fetchallcenters,addcenter,deletecenter,credentials,setCredentials,loginUser,match,AddUser,admin,setAdmin,AddAdmin,loginAdmin,applyforslot,fetchbookedslot,bookedslots,deletebookedslots}}>
+      <dataContext.Provider value={{centers,setCenters,fetchallcenters,addcenter,deletecenter,credentials,setCredentials,loginUser,match,AddUser,admin,setAdmin,AddAdmin,loginAdmin,applyforslot,fetchbookedslot,bookedslots,deletebookedslots,profilee,profile,userlogin,setUserlogin,deleteaccount,allbookedslots,fetchallbookedslot}}>
         {props.children}
       </dataContext.Provider>
     </>

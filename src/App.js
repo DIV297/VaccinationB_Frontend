@@ -12,6 +12,8 @@ import SignUp from "./components/SignUp"
 import VaccinationData from './context/VaccinationData';
 import AddCenter from './components/AddCenter';
 import Copyright from './components/Copyright';
+import Profile from './components/Profile';
+import Bookedslots from './components/Bookedslots';
 function App() {
   return (
     
@@ -26,6 +28,8 @@ function App() {
             <Route exact path='/home' element={<Home></Home>}></Route>
             <Route exact path='/addcenter' element={<AddCenter></AddCenter>}></Route>
             <Route exact path='/' element={<Login></Login>}></Route>
+            <Route exact path='/profile' element={<Profile></Profile>}></Route>
+            <Route exact path='/bookedslots' element={<Bookedslots></Bookedslots>}></Route>
             <Route exact path='/signup' element={<SignUp></SignUp>}></Route>
 
           </Routes>

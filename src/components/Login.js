@@ -17,7 +17,7 @@ const Login = () => {
   return (
     <>
       <div>
-                <h2 className='container' style={{'margin':'10vh'}}>Login to Vaccination Booking App</h2>
+                <h2 className='' style={{'margin':'6vh'}}>Login to Vaccination Booking App</h2>
                 <form className="centers" onSubmit={loginUser} >
                     <div className="form-outline mb-4 my-3">
                         <input type="email" id="email" name="email" className="form-control" onChange={onChange} value={credentials.email} />

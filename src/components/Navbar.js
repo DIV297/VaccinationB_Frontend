@@ -5,7 +5,11 @@ import dataContext from "../context/dataContext";
 const Navbar = () => {
   let location = useLocation();
   const context = useContext(dataContext)
-  const {admin,setAdmin} = context;
+  const {admin,setAdmin,userlogin,setUserlogin} = context;
+  const changeAuth = ()=>{
+    setAdmin(false);
+    setUserlogin(false);
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -18,18 +22,26 @@ const Navbar = () => {
       <ul className="navbar-nav">
         <li className="nav-item">
 
-          {location.pathname==='/home'?<Link className="nav-link active" aria-current="page" to="/home">Home</Link>:<div></div>}
+          {userlogin===true && admin===false?<Link className="nav-link active" aria-current="page" to="/home">Home</Link>:<div></div>}
         </li>
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/about">About</Link>
         </li>
         <li className="nav-item">
-          {admin===true?
-          <Link className="nav-link active" aria-current="page" to="/addcenter">Add Center</Link>:<div></div>
+          {admin===true && userlogin===true?
+          <Link className="nav-link active" aria-current="page" to="/addcenter">Add Center</Link>
+          :<div></div>
 }
         </li>
+        
+        <li className="nav-item">
+      {
+        location.pathname!=='/' && location.pathname!=='./signup' && userlogin===true && admin===false?<Link className="nav-link active" aria-current="page" to="/profile">Your profile</Link>:<div></div>
+      }
+      </li>
       </ul>
-      {location.pathname==='/home'||location.pathname==='/about' || location.pathname==='/addcenter'?<Link to='/'><button type='button' className='btn btn-primary mx-2'>Logout</button></Link>:
+      
+      {userlogin===true || admin===true && location.pathname!=='./'?<Link to='/'><button type='button' className='btn btn-primary mx-2' onClick={changeAuth}>Logout</button></Link>:
       <div>
 
     {location.pathname==='/'?<Link to='/signup'>
