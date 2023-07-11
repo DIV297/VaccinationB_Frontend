@@ -27,7 +27,7 @@ const clickbutoonforadmin = ()=>{
     <>
       <h2 className='' style={{'margin':'6vh'}}>Create Account to Vaccination Booking App</h2>
 
-<form onSubmit={AddUser} className="centers" style={{
+<form onSubmit={AddUser} className="login" style={{
   
 }}>
 <div className="form-outline mb-4">
